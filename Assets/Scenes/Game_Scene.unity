@@ -370,7 +370,7 @@ PrefabInstance:
     - target: {fileID: 7318212009336605766, guid: 13a98c5631eacc946a24ff405b4cc30f,
         type: 3}
       propertyPath: shopName
-      value: Icream Store
+      value: Icecream Store
       objectReference: {fileID: 0}
     - target: {fileID: 7318212009336605766, guid: 13a98c5631eacc946a24ff405b4cc30f,
         type: 3}

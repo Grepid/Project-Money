@@ -5,6 +5,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum StoreState {Locked,Idle,Running,Disabled}
+
 public class Store : MonoBehaviour
 {
     [SerializeField] private UnityEngine.UI.Image shopImg;
@@ -24,7 +26,10 @@ public class Store : MonoBehaviour
     [SerializeField] private float completeTime;
     [SerializeField] private float reward;
 
-    bool isProgressing;
+    bool wasClicked;
+    bool isAuto;
+
+    StoreState state;
 
     // Properties
     public float Progress
@@ -49,40 +54,40 @@ public class Store : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(wasClicked || isAuto)
+        {
+            ProgressTick();
+        }
         UpdateProgressSlider();
     }
 
     public void Clicked()
     {
-        if(!isProgressing)
+        if(!wasClicked && !isAuto)
         {
-            StartCoroutine(Progressing());
-            isProgressing = true;
+            
+            wasClicked = true;
         }
         
     }
     public void UpdateProgressSlider()
     {
-        float x = Mathf.Lerp(progressSliderMin, progressSliderMax, progress);
+        float x = Mathf.Lerp(progressSliderMin, progressSliderMax, Progress);
         progressSlider.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, x); 
     }
-    private IEnumerator Progressing()
+    private void ProgressTick()
     {
-        while (true)
+        Progress += (Time.deltaTime / completeTime);
+        if (Progress >= 1)
         {
-            progress += (Time.deltaTime / completeTime);
-            if (progress >= 1)
-            {
-                Complete();
-                yield break;
-            }
-            yield return null;
+            Complete();
+            return;
         }
     }
     private void Complete()
     {
-        isProgressing = false;
+        wasClicked = false;
         Player.instance.Money += reward;
-        progress = 0;
+        Progress = 0;
     }
 }
