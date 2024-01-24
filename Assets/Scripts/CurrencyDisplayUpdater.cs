@@ -6,6 +6,8 @@ using UnityEngine;
 public class CurrencyDisplayUpdater : MonoBehaviour
 {
     private TextMeshProUGUI text;
+
+    [SerializeField]bool displayingPremium;
     private void Start()
     {
         //SubscribeToCurrencyChanged();
@@ -24,7 +26,15 @@ public class CurrencyDisplayUpdater : MonoBehaviour
 
     private void Update()
     {
-        text.text = "Money: " + System.Math.Round(Player.instance.Money) + "   Platinum: " + Player.instance.Premium;
+        if (displayingPremium)
+        {
+            text.text = Player.instance.Premium.ToString();
+        }
+        else
+        {
+            text.text = Player.instance.Money.ToString();
+        }
+        
     }
 
 
