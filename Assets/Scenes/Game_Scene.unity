@@ -1897,5 +1897,20 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7318212011118986581, guid: 13a98c5631eacc946a24ff405b4cc30f,
+        type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7468348528610104665, guid: 13a98c5631eacc946a24ff405b4cc30f,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 480
+      objectReference: {fileID: 0}
+    - target: {fileID: 7875423474624544256, guid: 13a98c5631eacc946a24ff405b4cc30f,
+        type: 3}
+      propertyPath: m_ShowMaskGraphic
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13a98c5631eacc946a24ff405b4cc30f, type: 3}
