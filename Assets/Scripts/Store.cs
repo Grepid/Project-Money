@@ -58,7 +58,6 @@ public class Store : MonoBehaviour
         {
             StartCoroutine(Progressing());
             isProgressing = true;
-            print("Started Coroutine");
         }
         
     }
@@ -72,7 +71,6 @@ public class Store : MonoBehaviour
         while (true)
         {
             progress += (Time.deltaTime / completeTime);
-            print(progress);
             if (progress >= 1)
             {
                 Complete();

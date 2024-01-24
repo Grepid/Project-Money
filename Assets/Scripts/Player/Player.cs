@@ -9,6 +9,16 @@ public class Player : MonoBehaviour
     private float money;
     private float premium;
 
+    /*public delegate void CurrencyChangedEventHandler(float moneyDelta, float premiumDelta);
+
+    public event CurrencyChangedEventHandler CurrencyChanged;
+
+    protected virtual void OnCurrencyChanged(float moneyDelta, float premiumDelta)
+    {
+        CurrencyChanged?.Invoke(moneyDelta, premiumDelta);
+    }*/
+
+
     // Properties
     public float Money
     {
@@ -19,6 +29,7 @@ public class Player : MonoBehaviour
         set
         {
             money = value;
+            //OnCurrencyChanged(value, 0);
         }
     }
 
@@ -31,6 +42,7 @@ public class Player : MonoBehaviour
         set
         {
             premium = value;
+            //OnCurrencyChanged(0,value);
         }
     }
 
