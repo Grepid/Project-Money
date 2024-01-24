@@ -24,7 +24,7 @@ public class CurrencyDisplayUpdater : MonoBehaviour
 
     private void Update()
     {
-        text.text = "Money: " + Player.instance.Money + "   Platinum: " + Player.instance.Premium;
+        text.text = "Money: " + System.Math.Round(Player.instance.Money) + "   Platinum: " + Player.instance.Premium;
     }
 
 

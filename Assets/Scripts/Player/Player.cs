@@ -6,8 +6,9 @@ public class Player : MonoBehaviour
 {
     public static Player instance;
 
-    private float money;
-    private float premium;
+    private double money;
+    private int premium;
+
 
     /*public delegate void CurrencyChangedEventHandler(float moneyDelta, float premiumDelta);
 
@@ -20,7 +21,7 @@ public class Player : MonoBehaviour
 
 
     // Properties
-    public float Money
+    public double Money
     {
         get
         {
@@ -28,12 +29,12 @@ public class Player : MonoBehaviour
         }
         set
         {
-            money = value;
+            money = System.Math.Round(value);
             //OnCurrencyChanged(value, 0);
         }
     }
 
-    public float Premium
+    public int Premium
     {
         get
         {

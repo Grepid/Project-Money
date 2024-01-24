@@ -21,18 +21,18 @@ public class Store : MonoBehaviour
 
     [SerializeField]
     [Range(0f, 1f)]
-    private float progress;
+    private double progress;
 
-    [SerializeField] private float completeTime;
-    [SerializeField] private float reward;
+    [SerializeField] private double completeTime;
+    [SerializeField] private ulong reward;
 
     bool wasClicked;
-    bool isAuto;
+    [SerializeField]bool isAuto;
 
     StoreState state;
 
     // Properties
-    public float Progress
+    public double Progress
     {
         get
         {
@@ -40,7 +40,7 @@ public class Store : MonoBehaviour
         }
         set
         {
-            progress = Mathf.Clamp(value,0,1);
+            progress = value;
         }
     }
 
@@ -65,20 +65,20 @@ public class Store : MonoBehaviour
     {
         if(!wasClicked && !isAuto)
         {
-            
             wasClicked = true;
         }
         
     }
     public void UpdateProgressSlider()
     {
-        float x = Mathf.Lerp(progressSliderMin, progressSliderMax, Progress);
+        
+        float x = Mathf.Lerp(progressSliderMin, progressSliderMax, (float)System.Math.Clamp(progress, 0, 1));
         progressSlider.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, x); 
     }
     private void ProgressTick()
     {
-        Progress += (Time.deltaTime / completeTime);
-        if (Progress >= 1)
+        progress += (Time.deltaTime / completeTime);
+        if (progress >= 1)
         {
             Complete();
             return;
@@ -87,7 +87,7 @@ public class Store : MonoBehaviour
     private void Complete()
     {
         wasClicked = false;
-        Player.instance.Money += reward;
-        Progress = 0;
+        Player.instance.Money += reward * progress;
+        progress = 0;
     }
 }
