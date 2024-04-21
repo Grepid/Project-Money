@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour
 {
@@ -8,6 +9,15 @@ public class Player : MonoBehaviour
 
     private double money;
     private int premium;
+
+    public static RaycastHit2D rayHit;
+
+    private PlayerControls controls;
+
+    private static Vector2 pointerPos;
+
+    [SerializeField] private float fpsBeforeSolidAuto;
+    public float FPSBeforeSolidAuto => fpsBeforeSolidAuto;
 
 
     /*public delegate void CurrencyChangedEventHandler(float moneyDelta, float premiumDelta);
@@ -47,8 +57,20 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        controls.Player.Enable();
+    }
+    private void OnDisable()
+    {
+        controls.Player.Disable();
+    }
+
     private void Awake()
     {
+        controls = new PlayerControls();
+
+
         if(instance == null)
         {
             instance = this;
@@ -57,6 +79,10 @@ public class Player : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        controls.Player.PointerLocation.performed += context => pointerPos = context.ReadValue<Vector2>();
+        controls.Player.PointerLocation.canceled += context => pointerPos = Vector2.zero;
+
     }
     // Start is called before the first frame update
     void Start()
@@ -67,6 +93,22 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+                
+    }
+    void Raycast()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(pointerPos);
+        rayHit = Physics2D.Raycast(ray.origin,Vector2.zero);
+    }
+    public static List<RaycastResult> UICast()
+    {
+        List<RaycastResult> result = new List<RaycastResult>();
+
+        PointerEventData pointerData = new PointerEventData(EventSystem.current);
+        pointerData.position = pointerPos;
+
+        EventSystem.current.RaycastAll(pointerData, result);
+
+        return result;
     }
 }

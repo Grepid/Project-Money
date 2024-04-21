@@ -28,6 +28,7 @@ public class Store : MonoBehaviour
 
     bool wasClicked;
     [SerializeField]bool isAuto;
+    bool isSolidFill;
 
     StoreState state;
 
@@ -54,6 +55,7 @@ public class Store : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (completeTime < 1 / Player.instance.FPSBeforeSolidAuto) { isSolidFill = true; } //Also add code to start repeating texture
         if(wasClicked || isAuto)
         {
             ProgressTick();
@@ -71,7 +73,7 @@ public class Store : MonoBehaviour
     }
     public void UpdateProgressSlider()
     {
-        
+        if (isSolidFill) { progressSlider.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, progressSliderMax); return; }
         float x = Mathf.Lerp(progressSliderMin, progressSliderMax, (float)System.Math.Clamp(progress, 0, 1));
         progressSlider.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, x); 
     }
@@ -89,5 +91,10 @@ public class Store : MonoBehaviour
         wasClicked = false;
         Player.instance.Money += reward * progress;
         progress = 0;
+
+    }
+    private void RepeatingTexture()
+    {
+
     }
 }
